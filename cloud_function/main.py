@@ -6,8 +6,8 @@ METADATA_HEADERS = {'Metadata-Flavor':'Google'}
 SERVICE_ACCOUNT = 'default' #You may replace this with the Service Account you're using if you're using a SA other than the default 
 
 # Now we assemble the Data Fusion URL we will send the request to, according to the Data Fusion REST API docs: https://cloud.google.com/data-fusion/docs/reference/cdap-reference#start_a_batch_pipeline 
-CDAP_INSTANCE_ENDPOINT = "https://cdf-test-instance-simplecsvbqload-dot-use1.datafusion.googleusercontent.com/api"
-PIPELINE_NAME = "Ingest_into_bq_v1"
+CDAP_INSTANCE_ENDPOINT = "[YOUR_CDAP_INSTANCE_ENDPOINT]"
+PIPELINE_NAME = "[YOUR_PIPELINE_NAME]"
 CDAP_PIPELINE_URL = '{}/v3/namespaces/default/apps/{}/workflows/DataPipelineWorkflow/start'.format(CDAP_INSTANCE_ENDPOINT, PIPELINE_NAME)
 
 
@@ -17,7 +17,7 @@ def get_access_token():
 
 	# Request an access token from the metadata server.
 	r = requests.get(url, headers=METADATA_HEADERS)
-	print("Getting token")
+	print("Getting authentication token")
 	print(r.raise_for_status())
 
 	# Extract the access token from the response.
@@ -35,7 +35,7 @@ def main(event, context):
 	
 	"""    
 	file = event
-	print("Processing file: {}.".format(file['name']))
+	print(f"Processing file: {file['name']}.")
 	token = get_access_token()
 	print(token)
 
